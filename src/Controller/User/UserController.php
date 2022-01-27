@@ -17,7 +17,10 @@ class UserController extends AbstractController
      * @Route("/")
      */
     public function index()
-    {
-        return new Response("Hello User!");
+    {   
+        return $this->render('home.html.twig', [
+
+        ]);
     }
+
 }
