@@ -19,24 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/", name="comment_user_index", methods={"GET"})
-     */
-    public function index(Post $post, EntityManagerInterface $entityManager): Response
-    {
-        $comments = $entityManager
-            ->getRepository(Comment::class)
-            ->findAll();
-
-        return $this->render('comment/index.user.html.twig', [
-            'comments' => $comments,
-            'post' => $post
-        ]);
-    }
-
-    /**
      * @Route("/new", name="comment_new", methods={"GET", "POST"})
      */
-    public function new(Post $post, $slug, Request $request, EntityManagerInterface $entityManager, $id): Response
+    public function new(Post $post, Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -50,9 +35,10 @@ class CommentController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute(
-                'comment_user_index', [
-                    "id" => $id,
-                    "slug" => $slug
+                'comment_user_index', 
+                [
+                    "id" => $post->getId(),
+                    "slug" => $post->getSlug()
                 ], 
                 Response::HTTP_SEE_OTHER);
         }
@@ -61,19 +47,6 @@ class CommentController extends AbstractController
             'comment' => $comment,
             'form' => $form,
             'post' => $post
-        ]);
-    }
-
-    /**
-     * @Route("/{comment_id}/", name="comment_user_show", methods={"GET"})
-     */
-    public function show(Post $post, $comment_id): Response
-    {
-        $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
-        $comment = $commentRepository->find($comment_id);
-
-        return $this->render('comment/show.user.html.twig', [
-            'comment' => $comment,
         ]);
     }
 

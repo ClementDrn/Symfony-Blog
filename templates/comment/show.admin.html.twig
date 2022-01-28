@@ -1,39 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaire {{ comment.id }} · {{ comment.post.name }} · Blog{% endblock %}
+{% block title %}Commentaire {{ comment.id }} · {{ comment.post.title }} · Blog{% endblock %}
 
 {% block body %}
     <div class="body-content">
-        <h1>Comment</h1>
+        <h1>Commentaire {{ comment.id }}</h1>
+        <h2 class="text-center mb-2">{{ comment.post.title }}</h2>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ comment.id }}</td>
-                </tr>
-                <tr>
-                    <th>Username</th>
-                    <td>{{ comment.username }}</td>
-                </tr>
-                <tr>
-                    <th>Content</th>
-                    <td>{{ comment.content }}</td>
-                </tr>
-                <tr>
-                    <th>Valid</th>
-                    <td>{{ comment.valid ? 'Yes' : 'No' }}</td>
-                </tr>
-                <tr>
-                    <th>CreatedAt</th>
-                    <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d') : '' }}</td>
-                </tr>
-            </tbody>
-        </table>
+        {{ include('comment/_comment.user.html.twig') }}
 
-        <a href="{{ path('comment_admin_index', {'id': post.id, 'slug': post.slug}) }}">back to list</a>
-
-        <a href="{{ path('comment_edit', {'id': post.id, 'slug': post.slug, 'comment_id': comment.id}) }}">edit</a>
+        <a href="{{ path('comment_admin_index', {'id': comment.id}) }}">Retour à la liste</a>
 
         {{ include('comment/_delete_form.html.twig') }}
     </div>

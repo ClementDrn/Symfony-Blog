@@ -159,6 +159,25 @@ body {
                 margin-bottom: 1rem; 
             }
         }
+
+        // Comments
+        .comment {
+            display: block;
+            background-color: rgb(205, 213, 216);
+            margin: 1rem;
+            padding: 1rem;
+            border: 1px rgb(151, 151, 151);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0 , .125);
+        }
+
+        .not-valid {
+            background-color: rgb(223, 122, 147);
+        }
+
+        .valid {
+            background-color: rgb(117, 211, 117);
+        }
         
     }
 

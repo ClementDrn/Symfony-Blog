@@ -1,41 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaires · {{ post.title }} · Blog{% endblock %}
+{% block title %}Commentaires · Blog{% endblock %}
 
 {% block body %}
     <div class="body-content">
-        <h1>Comment index</h1>
+        <h1>Liste des commentaires</h1>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Content</th>
-                    <th>Valid</th>
-                    <th>CreatedAt</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for comment in comments %}
-                <tr>
-                    <td>{{ comment.id }}</td>
-                    <td>{{ comment.username }}</td>
-                    <td>{{ comment.content }}</td>
-                    <td>{{ comment.valid ? 'Yes' : 'No' }}</td>
-                    <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d') : '' }}</td>
-                    <td>
-                        <a href="{{ path('comment_admin_show', {'id': comment.id}) }}">show</a>     {# Maybe only one line #}
-                        <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="6">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {% for comment in comments %}
+            {{ include('comment/_comment.admin.html.twig') }}
+        {% else %}
+            <p>Il n'y a aucun commentaire.</p>
+        {% endfor %}
     </div>
 {% endblock %}

@@ -1,0 +1,13 @@
+<div class="comment {{ comment.isValid ? 'valid' : 'not-valid' }}">
+
+    <h3>[{{ comment.id }}] {{ comment.username }} - {{ comment.post.title }} - {{ comment.createdAt ? comment.createdAt|date('Y-m-d') : '' }}</h3>
+    <p>{{ comment.content }}</p>
+    <a href="{{ path('comment_admin_show', {'id': comment.id}) }}">Voir</a>
+
+    {% if comment.valid %}
+        <a href="{{ path('comment_admin_validate', {'id': comment.id, 'valid': 0}) }}">Invalider</a>
+    {% else %}
+        <a href="{{ path('comment_admin_validate', {'id': comment.id, 'valid': 1}) }}">Valider</a>
+    {% endif %}
+
+</div>
