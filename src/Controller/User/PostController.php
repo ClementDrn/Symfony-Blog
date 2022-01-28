@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,18 +25,34 @@ class PostController extends AbstractController
             ->getRepository(Post::class)
             ->findAll();
 
+        $length = count($posts);
+        if ($length > 5)
+            $length = 5;
+        $latestPosts = array_slice($posts, 0, $length);
+
         return $this->render('post/index.user.html.twig', [
-            'posts' => $posts,
+            'posts' => $latestPosts,
+            'max_count' => $length
         ]);
     }
 
     /**
-     * @Route("/{id}", name="post_user_show", methods={"GET"})
+     * @Route("/{id}/{slug}", name="post_user_show", methods={"GET"})
      */
-    public function show(Post $post): Response
+    public function show(Post $post, EntityManagerInterface $entityManager): Response
     {
+        $query = $entityManager->createQuery(
+            'SELECT c
+             FROM App\Entity\Comment c
+             WHERE c.post = :post
+             ORDER BY c.createdAt DESC'
+        )->setParameter('post', $post->getId());
+
+        $comments = $query->getResult();
+
         return $this->render('post/show.user.html.twig', [
             'post' => $post,
+            'comments' => $comments
         ]);
     }
 

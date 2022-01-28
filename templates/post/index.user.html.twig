@@ -1,1 +1,22 @@
-{% extends "home.html.twig" %}
+{% extends "base.html.twig" %}
+
+{% block title %}Derniers posts · Blog{% endblock %}
+
+{% block body %}
+    <div class="body-content row">
+        {{ include("_sidebar.html.twig") }}
+
+        <div class="flex-1">
+            <h1>Derniers posts</h1>
+
+            <ul class="posts">
+                {% for i in 0..max_count-1 %}
+                    {% if posts[i] %}
+                        {{ include("_post.html.twig") }}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+

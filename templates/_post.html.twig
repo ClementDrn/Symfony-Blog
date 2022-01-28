@@ -1,9 +1,12 @@
 <li class="post">
     <h3 class="post-title">
-        {{ post.title }}
+        {{ posts[i].title }}
     </h3>
-    <p class="post-description">
-        {{ post.description }}
+    <p class="date">
+        Dernière mise à jour : {{ posts[i].updatedAt ? posts[i].updatedAt|date('Y-m-d H:i:s') : '' }}
     </p>
-    <button>Lire le post</button>
+    <p class="post-description">
+        {{ posts[i].description }}
+    </p>
+    <a href="{{path('post_user_show', {'id': posts[i].id, 'slug': posts[i].slug})}}">Lire le post</a>
 </li>

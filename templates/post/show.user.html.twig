@@ -1,52 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ post.name }} · Blog{% endblock %}
+{% block title %}{{ post.title }} · Blog{% endblock %}
 
 {% block body %}
     <div class="body-content">
-        <h1>{{ post.name }}</h1>
+        <h1>{{ post.title }}</h1>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ post.id }}</td>
-                </tr>
-                <tr>
-                    <th>Title</th>
-                    <td>{{ post.title }}</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{{ post.description }}</td>
-                </tr>
-                <tr>
-                    <th>Content</th>
-                    <td>{{ post.content }}</td>
-                </tr>
-                <tr>
-                    <th>Slug</th>
-                    <td>{{ post.slug }}</td>
-                </tr>
-                <tr>
-                    <th>CreatedAt</th>
-                    <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>UpdatedAt</th>
-                    <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>PublishedAt</th>
-                    <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <p class="date">
+            Création : {{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}<br/>
+            Publication {{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}<br/>
+            Dernière mise à jour :  {{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}
+        </p>
 
-        <a href="{{ path('post_user_index') }}">back to list</a>
+        <p>{{ post.content }}</p>
+        <br/>
+        <h3>Commentaires</h3>
+        {% for comment in comments %}
+            {% if comment.valid %}
+                {{ include('comment/_comment.user.html.twig') }}
+            {% endif %}
+        {% endfor %}
 
-        <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
-
-        {{ include('post/_delete_form.html.twig') }}
+        <a href="{{ path('post_user_index') }}">Retour</a>
     </div>
 {% endblock %}

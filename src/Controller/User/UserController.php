@@ -17,10 +17,8 @@ class UserController extends AbstractController
      * @Route("/")
      */
     public function index()
-    {   
-        return $this->render('post/index.user.html.twig', [
-
-        ]);
+    {
+        return $this->redirectToRoute('post_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
 }
