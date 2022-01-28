@@ -59,13 +59,14 @@ body {
             }
 
             &-links {
-                display: block;
+                @include row();
                 flex: 3;
                 text-align: right;
+                justify-content: right;
                 list-style: none;
                 
                 li {
-                    margin: 0;
+                    margin: 0 1rem;
                     /* display: inline; */
                 }
             }
