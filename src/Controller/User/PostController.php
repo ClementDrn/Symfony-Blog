@@ -28,8 +28,7 @@ class PostController extends AbstractController
 
         $now = new DateTime();
         foreach ($posts as $post) {
-            if ($post->getUpdatedAt() > $now || $post->getCreatedAt() > $now || $post->getPublishedAt() > $now
-                    || $post->getUpdatedAt() < $post->getCreatedAt()) {
+            if (!$this->isPostValid($post)) {
                 array_pop($posts, $post);
             }
         }
@@ -61,6 +60,10 @@ class PostController extends AbstractController
      */
     public function show(Post $post, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->isPostValid($post)) {
+            return $this->redirectToRoute('post_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         $query = $entityManager->createQuery(
             'SELECT c
              FROM App\Entity\Comment c
@@ -74,6 +77,13 @@ class PostController extends AbstractController
             'post' => $post,
             'comments' => $comments
         ]);
+    }
+
+    public function isPostValid($post)
+    {
+        $now = new DateTime();
+        return !($post->getUpdatedAt() > $now || $post->getCreatedAt() > $now || $post->getPublishedAt() > $now
+            || $post->getUpdatedAt() < $post->getCreatedAt());
     }
 
 }
