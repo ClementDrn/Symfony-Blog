@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle catégorie · Admin · Blog{% endblock %}
+
+{% block body %}
+    <div class="body-content">
+        <h1>Nouvelle catégorie</h1>
+
+        {{ include('category/_form.html.twig') }}
+
+        <a href="{{ path('category_admin_index') }}">Retour à la liste</a>
+    </div>
+{% endblock %}

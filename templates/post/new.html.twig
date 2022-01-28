@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Post · Blog{% endblock %}
+{% block title %}Nouveau Post · Admin · Blog{% endblock %}
 
 {% block body %}
     <div class="body-content column">
-        <h1>Create new Post</h1>
+        <h1>Nouveau post</h1>
 
         {{ include('post/_form.html.twig') }}
 
-        <a href="{{ path('post_admin_index') }}">back to list</a>
+        <a href="{{ path('post_admin_index') }}">Retour vers la liste</a>
     </div>
 {% endblock %}

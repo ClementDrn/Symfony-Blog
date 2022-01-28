@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau commentaire · {{ comment.post.name }} · Blog{% endblock %}
+{% block title %}Nouveau commentaire · {{ post.title }} · Blog{% endblock %}
 
 {% block body %}
     <div class="body-content">
-        <h1>Create new Comment</h1>
+        <h1>Nouveau Commentaire</h1>
+        <h2 class="text-center mb-2">{{ post.title }}</h2>
 
         {{ include('comment/_form.html.twig') }}
 
-        <a href="{{ path('comment_user_index') }}">back to list</a>
+        <a href="{{ path('comment_user_index', {'id': post.id, 'slug': post.slug}) }}">Retour</a>
     </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaires · {{ comment.post.name }} · Blog{% endblock %}
+{% block title %}Commentaires · {{ post.title }} · Blog{% endblock %}
 
 {% block body %}
     <div class="body-content">
@@ -14,7 +14,6 @@
                     <th>Content</th>
                     <th>Valid</th>
                     <th>CreatedAt</th>
-                    <th>actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,19 +24,15 @@
                     <td>{{ comment.content }}</td>
                     <td>{{ comment.valid ? 'Yes' : 'No' }}</td>
                     <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d') : '' }}</td>
-                    <td>
-                        <a href="{{ path('comment_user_show', {'id': comment.id}) }}">show</a>
-                        <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
-                    </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="6">no records found</td>
+                    <td colspan="5">no records found</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('comment_new') }}">Create new</a>
+        <a href="{{ path('comment_new', {'id': post.id, 'slug': post.slug}) }}">Nouveau commentaire</a>
     </div>
 {% endblock %}

@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="body-content">
-        <h1>Liste des catégories de posts</h1>
+        <h1>Liste des catégories</h1>
 
         <table class="table">
             <thead>
@@ -21,7 +21,7 @@
                     <td>{{ category.name }}</td>
                     <td>
                         <a href="{{ path('category_admin_show', {'id': category.id}) }}">show</a>
-                        <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                        <a href="{{ path('category_admin_edit', {'id': category.id}) }}">edit</a>
                     </td>
                 </tr>
             {% else %}
@@ -32,6 +32,6 @@
             </tbody>
         </table>
 
-        <a href="{{ path('category_new') }}">Create new</a>
+        <a href="{{ path('category_admin_new') }}">Create new</a>
     </div>
 {% endblock %}

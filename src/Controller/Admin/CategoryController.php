@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/", name="category_index", methods={"GET"})
+     * @Route("/", name="category_admin_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -25,13 +25,13 @@ class CategoryController extends AbstractController
             ->getRepository(Category::class)
             ->findAll();
 
-        return $this->render('category/index.html.twig', [
+        return $this->render('category/index.admin.html.twig', [
             'categories' => $categories,
         ]);
     }
 
     /**
-     * @Route("/new", name="category_new", methods={"GET", "POST"})
+     * @Route("/new", name="category_admin_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -43,10 +43,10 @@ class CategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
-            return $this->redirectToRoute('category_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('category_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('category/new.html.twig', [
+        return $this->renderForm('category/new.admin.html.twig', [
             'category' => $category,
             'form' => $form,
         ]);
@@ -63,7 +63,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="category_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="category_admin_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Category $category, EntityManagerInterface $entityManager): Response
     {
@@ -73,10 +73,10 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('category_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('category_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('category/edit.html.twig', [
+        return $this->renderForm('category/edit.admin.html.twig', [
             'category' => $category,
             'form' => $form,
         ]);
@@ -92,6 +92,6 @@ class CategoryController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('category_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('category_admin_index', [], Response::HTTP_SEE_OTHER);
     }
 }

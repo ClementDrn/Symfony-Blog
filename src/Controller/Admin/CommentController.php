@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Comment;
+use App\Entity\Post;
 use App\Form\CommentType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,14 +13,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/post/{post_slug}/comment")
+ * @Route("/admin/post/{id}/{slug}/comment")
  */
 class CommentController extends AbstractController
 {
     /**
      * @Route("/", name="comment_admin_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Post $post, EntityManagerInterface $entityManager): Response
     {
         $comments = $entityManager
             ->getRepository(Comment::class)
@@ -27,11 +28,12 @@ class CommentController extends AbstractController
 
         return $this->render('comment/index.admin.html.twig', [
             'comments' => $comments,
+            'post' => $post
         ]);
     }
 
     /**
-     * @Route("/{id}", name="comment_admin_show", methods={"GET"})
+     * @Route("/{comment_id}", name="comment_admin_show", methods={"GET"})
      */
     public function show(Comment $comment): Response
     {
@@ -41,7 +43,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="comment_edit", methods={"GET", "POST"})
+     * @Route("/{comment_id}/edit", name="comment_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
@@ -61,7 +63,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="comment_delete", methods={"POST"})
+     * @Route("/{comment_id}", name="comment_delete", methods={"POST"})
      */
     public function delete(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
