@@ -11,7 +11,8 @@
 
             <ul class="posts">
                 {% for i in 0..max_count-1 %}
-                    {% if posts[i] %}
+                    {% set post = posts[i] %}
+                    {% if post %}
                         {{ include("_post.html.twig") }}
                     {% endif %}
                 {% endfor %}

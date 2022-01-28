@@ -4,25 +4,14 @@
 
 {% block body %}
     <div class="body-content">
-        <h1>Category</h1>
+        <h1>Posts - {{ category.name }}</h1>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ category.id }}</td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td>{{ category.name }}</td>
-                </tr>
-            </tbody>
-        </table>
+            <ul class="posts">
+                {% for post in posts %}
+                    {{ include("_post.html.twig") }}
+                {% endfor %}
+            </ul>
 
-        <a href="{{ path('') }}">Retour</a>
-
-        <a href="{{ path('category_admin_edit', {'id': category.id}) }}">edit</a>
-
-        {{ include('category/_delete_form.html.twig') }}
+        <a href="{{ path('post_user_index') }}">Retour</a>
     </div>
 {% endblock %}

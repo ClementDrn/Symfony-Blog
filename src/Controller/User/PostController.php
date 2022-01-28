@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use DateTime;
 use App\Entity\Comment;
 use App\Entity\Post;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,14 +26,33 @@ class PostController extends AbstractController
             ->getRepository(Post::class)
             ->findAll();
 
-        $length = count($posts);
-        if ($length > 5)
-            $length = 5;
+        $now = new DateTime();
+        foreach ($posts as $post) {
+            if ($post->getUpdatedAt() > $now || $post->getCreatedAt() > $now || $post->getPublishedAt() > $now
+                    || $post->getUpdatedAt() < $post->getCreatedAt()) {
+                array_pop($posts, $post);
+            }
+        }
+        
+        usort($posts, function($a, $b) { return (($a->getUpdatedAt() < $b->getUpdatedAt()) ? -1 : 1); });
+
+        $length = (count($posts) < 5 ? count($posts) : 5);
+        
         $latestPosts = array_slice($posts, 0, $length);
+
+        $query = $entityManager->createQuery('
+            SELECT c.id, c.name, count(c.id) counter
+            FROM App\Entity\Category c JOIN c.posts p
+            GROUP BY c.id
+            '
+        );
+
+        $categories = $query->getResult();
 
         return $this->render('post/index.user.html.twig', [
             'posts' => $latestPosts,
-            'max_count' => $length
+            'max_count' => $length,
+            'categories' => $categories
         ]);
     }
 
