@@ -5,12 +5,15 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\Post;
 use App\Form\PostType;
+use DateTime;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @Route("/admin/post")
@@ -41,6 +44,15 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $now = new DateTime();
+            $post->setCreatedAt($now);
+            $post->setUpdatedAt($now);
+            $post->setPublishedAt($now);
+
+            $slugger = new AsciiSlugger();
+            $slug = $slugger->slug($post->getTitle());
+            $post->setSlug($slug);
+
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -72,6 +84,7 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setUpdatedAt(new DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('post_admin_index', [], Response::HTTP_SEE_OTHER);

@@ -20,10 +20,6 @@ class PostType extends AbstractType
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
             ->add('content', TextareaType::class)
-            ->add('slug', TextType::class)
-            ->add('createdAt', DateType::class)
-            ->add('updatedAt', DateType::class)
-            ->add('publishedAt', DateType::class)
             ->add('categories', EntityType::class, [
                 'by_reference' => false,
                 'class' => Category::class,
