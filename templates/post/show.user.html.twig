@@ -15,6 +15,9 @@
         <p>{{ post.content }}</p>
         <br/>
         <h3>Commentaires</h3>
+
+        <a href="{{ path('comment_user_new', {'id': post.id, 'slug': post.slug}) }}">Ajouter un commentaire</a><br/>
+
         {% for comment in comments %}
             {% if comment.valid %}
                 {{ include('comment/_comment.user.html.twig') }}

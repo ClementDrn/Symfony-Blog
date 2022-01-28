@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/new", name="comment_new", methods={"GET", "POST"})
+     * @Route("/new", name="comment_user_new", methods={"GET", "POST"})
      */
     public function new(Post $post, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -35,7 +35,7 @@ class CommentController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute(
-                'comment_user_index', 
+                'post_user_show', 
                 [
                     "id" => $post->getId(),
                     "slug" => $post->getSlug()
@@ -43,7 +43,7 @@ class CommentController extends AbstractController
                 Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('comment/new.html.twig', [
+        return $this->renderForm('comment/new.user.html.twig', [
             'comment' => $comment,
             'form' => $form,
             'post' => $post
