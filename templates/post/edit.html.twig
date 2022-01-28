@@ -1,14 +1,14 @@
 {% extends 'base.admin.html.twig' %}
 
-{% block title %}Modification · {{ post.title }} · Blog{% endblock %}
+{% block title %}Modification · {{ post.title }} · Admin · Blog{% endblock %}
 
 {% block body %}
     <div class="body-content">
-        <h1>Edit Post</h1>
+        <h1>Modification - {{ post.title }}</h1>
 
-        {{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('post/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-        <a href="{{ path('post_admin_index') }}">back to list</a>
+        <a href="{{ path('post_admin_index') }}">Retour à la liste</a>
 
         {{ include('post/_delete_form.html.twig') }}
     </div>

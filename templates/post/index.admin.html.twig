@@ -32,8 +32,8 @@
                     <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
-                        <a href="{{ path('post_admin_show', {'id': post.id}) }}">show</a>
-                        <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+                        <a href="{{ path('post_admin_show', {'id': post.id}) }}">Voir</a>
+                        <a href="{{ path('post_edit', {'id': post.id}) }}">Modifier</a>
                     </td>
                 </tr>
             {% else %}
@@ -44,6 +44,6 @@
             </tbody>
         </table>
 
-        <a href="{{ path('post_new') }}">Create new</a>
+        <a href="{{ path('post_new') }}">Créer un nouveau post</a>
     </div>
 {% endblock %}
