@@ -10,4 +10,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+
+            <h2>Derniers posts</h2>
+            <ul class="sidebar-links">
+                {% for i in 0..max_count-1 %}
+                    {% set post = posts[i] %}
+                    <li>
+                        <a href="{{path('post_user_show', {'id': post.id, 'slug': post.slug})}}">{{ post.title }}</a> 
+                    </li>
+                {% endfor %}
+            </ul>
         </div>

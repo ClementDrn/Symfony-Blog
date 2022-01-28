@@ -12,9 +12,7 @@
             <ul class="posts">
                 {% for i in 0..max_count-1 %}
                     {% set post = posts[i] %}
-                    {% if post %}
-                        {{ include("_post.html.twig") }}
-                    {% endif %}
+                    {{ include("_post.html.twig") }}
                 {% endfor %}
             </ul>
         </div>

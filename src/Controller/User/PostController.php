@@ -34,7 +34,7 @@ class PostController extends AbstractController
             }
         }
         
-        usort($posts, function($a, $b) { return (($a->getUpdatedAt() < $b->getUpdatedAt()) ? -1 : 1); });
+        usort($posts, function($a, $b) { return (($a->getUpdatedAt() > $b->getUpdatedAt()) ? -1 : 1); });
 
         $length = (count($posts) < 5 ? count($posts) : 5);
         
