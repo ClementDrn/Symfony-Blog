@@ -68,8 +68,7 @@ body {
 
     }
 
-    .body {
-        @include row();
+    .body-content {
         padding: 1rem;
         flex: 1;
         
@@ -88,11 +87,6 @@ body {
             &-links {
                 list-style: none;
                 padding: 0;
-
-                li {
-
-
-                }
             }
         }
 
@@ -145,6 +139,15 @@ body {
                 }
             }
 
+        }
+
+        // Forms
+        form {
+            margin: 0 0 1rem 0;
+
+            #post {
+                margin-bottom: 1rem; 
+            }
         }
         
     }
