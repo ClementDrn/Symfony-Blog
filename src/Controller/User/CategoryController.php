@@ -18,11 +18,11 @@ class CategoryController extends AbstractController
 {
 
     /**
-     * @Route("/{id}", name="category_show", methods={"GET"})
+     * @Route("/{id}", name="category_user_show", methods={"GET"})
      */
     public function show(Category $category): Response
     {
-        return $this->render('category/show.html.twig', [
+        return $this->render('category/show.user.html.twig', [
             'category' => $category,
         ]);
     }

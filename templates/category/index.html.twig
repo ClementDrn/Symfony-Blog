@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Catégories · Blog{% endblock %}
 
 {% block body %}
-    <div class="body-content column">
-        <h1>Category index</h1>
+    <div class="body-content">
+        <h1>Liste des catégories de posts</h1>
 
         <table class="table">
             <thead>
@@ -20,7 +20,7 @@
                     <td>{{ category.id }}</td>
                     <td>{{ category.name }}</td>
                     <td>
-                        <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
+                        <a href="{{ path('category_admin_show', {'id': category.id}) }}">show</a>
                         <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
                     </td>
                 </tr>

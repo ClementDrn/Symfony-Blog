@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     /**
-     * @Route("/", name="post_index", methods={"GET"})
+     * @Route("/", name="post_admin_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -26,7 +26,7 @@ class PostController extends AbstractController
             ->getRepository(Post::class)
             ->findAll();
 
-        return $this->render('post/index.html.twig', [
+        return $this->render('post/index.admin.html.twig', [
             'posts' => $posts,
         ]);
     }
@@ -44,7 +44,7 @@ class PostController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('post_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('post/new.html.twig', [
@@ -54,11 +54,11 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="post_show", methods={"GET"})
+     * @Route("/{id}", name="post_amin_show", methods={"GET"})
      */
     public function show(Post $post): Response
     {
-        return $this->render('post/show.html.twig', [
+        return $this->render('post/show.admin.html.twig', [
             'post' => $post,
         ]);
     }
@@ -74,7 +74,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('post_admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('post/edit.html.twig', [
@@ -93,6 +93,6 @@ class PostController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('post_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('post_admin_index', [], Response::HTTP_SEE_OTHER);
     }
 }

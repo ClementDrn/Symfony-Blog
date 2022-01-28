@@ -2,8 +2,9 @@
 
 ## ToDo
 
-- Choisir un nom de blog (ex: Mon blog)
-  
+- ~~Choisir un nom de blog~~
+--> "Blog" :)
+
 - une partie "Admin" (/admin/...)  
   - Barre de menu pour les accès à
     - Nom du site (avec un lien sur la homepage: partie Utilisateur)
@@ -12,10 +13,11 @@
     - Liste des Commentaires
   - Post (depuis la liste des Post)
     - Liste des Post
-    - Créer un nouveau Post
+    - ~~Créer un nouveau Post~~
       - Pouvoir ajouter des catégories au Post
+      - Dates automatiques
     - Éditer un Post
-    - Supprimer un Post
+    - ~~Supprimer un Post~~
   - Category (depuis la liste des categories)
     - Liste des catégories
     - Créer une catégorie
